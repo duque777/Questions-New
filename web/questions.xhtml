@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Questions Answers</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true" onResize="true">
+
+                <p:layoutUnit position="north" size="130" resizable="false" closable="false" collapsible="false">
+                    <center><img src="images/QUESTIONS LOGO.png"/></center>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="south" size="40" closable="true" collapsible="true">
+                    <center>  <h:outputText value="Olivier Duque - duke_duquejr@hotmail.com" style="font-size: 75%"/> </center>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" size="220" header="Questions" collapsible="false">
+                    <p:menu>
+                        <p:menuitem value="Questions" url="/questions.jsf" />
+                            <p:menuitem value="Category" url="/categoria.jsf" />
+
+
+                    </p:menu>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+                    <h:form>
+                        Logado como: #{questionController.usuario.nome}
+                        <center> <p:commandButton value="Add Question" style="font-size: 75%" type="button" onclick="dlg2.show();"/> </center>
+                        <p:dataTable value="#{questionController.perguntas}" var="perg" paginator="true" emptyMessage="No Questions!" rows="10"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                            <p:column headerText="Title Question" filterMatchMode="contains" filterBy="#{perg.titulo}">
+                                #{perg.titulo}
+                            </p:column>
+                            <p:column headerText="Category" filterMatchMode="contains" filterBy="#{perg.categoria.categoria}" >
+                                #{perg.categoria.categoria}
+                            </p:column>
+                            <p:column headerText="Answers">
+                                #{perg.answers}
+                            </p:column>
+                            <p:column headerText="View">
+                                <p:commandButton value="view" id="button" style="font-size: 75%" icon="ui-icon-search" onclick="dlgPerg.show();" immediate="true" action="#{questionController.viewQuestion(perg)}"/>
+                            </p:column>
+
+                        </p:dataTable>
+                        <p:dialog header="New Question" widgetVar="dlg2" height="500" maximizable="true" minimizable="true" width="800">
+                            <h:panelGrid columns="2">
+                                <h:outputText value="Title Question: "/>
+                                <p:inputText value="#{questionController.pergunta.titulo}"/>
+
+                                <h:outputText value="Category "/>
+                                <p:selectOneMenu value="#{questionController.pergunta.categoria}" >
+                                    <f:selectItems value="#{categoriaController.categorias}" var="cat" itemLabel="#{cat.categoria}" />
+                                </p:selectOneMenu>
+
+                                <p:column/>
+                                <p:editor id="editor" value="#{questionController.pergunta.pergunta}"/>
+
+                                <p:commandButton value="Submit" action="#{questionController.saveQuestion()}"/>
+                                <p:column/>
+                            </h:panelGrid>
+                        </p:dialog> 
+
+                        <p:dialog header="Question ????" widgetVar="dlgPerg" id="perguntaDialog" height="500" maximizable="true" minimizable="true" width="800">
+                            <p:outputPanel autoUpdate="true">   
+
+                                <center><h:outputText value="#{questionController.pergunta.titulo}" style="font-size: 200%"/></center>
+                                <h:panelGrid columns="2">
+
+                                    <h:outputText value="Categoria: "/>
+                                    <h:outputText value="#{questionController.pergunta.categoria}"/>
+                                </h:panelGrid>
+                                <p:panelGrid columns="6" style="font-size: 75%">
+                                    <p:outputPanel autoUpdate="true">
+                                        <p:column>
+                                            <h:outputText value="Avaliado:"/> <p:rating readonly="true"/>
+                                        </p:column>
+                                    </p:outputPanel>
+                                    <p:outputPanel autoUpdate="true">
+                                        <p:column>
+                                            <h:outputText value="Sua Avaliacao:"/> <p:rating />
+                                        </p:column>
+                                    </p:outputPanel>
+
+                                    <p:column>
+                                        Autor: Olivier
+                                    </p:column>
+                                    <p:column>
+                                        Data: 12/08/2014
+                                    </p:column>
+
+                                </p:panelGrid>
+                                <p:separator />
+                                <h:outputText value="#{questionController.pergunta.pergunta}"/>
+
+
+                                <p:fieldset style="font-size: 75%" legend="#{questionController.pergunta.titulo}" toggleable="true" toggleSpeed="500">
+                                    <p:panelGrid columns="6">
+                                        <p:outputPanel autoUpdate="true">
+                                            <p:column>
+                                                <h:outputText value="Avaliado : "/><p:rating readonly="true"/>
+                                            </p:column>
+                                        </p:outputPanel>
+                                        <p:outputPanel>
+                                            <p:column>
+                                                <h:outputText value="Sua Avaliacao:"/> <p:rating />
+                                            </p:column>
+                                        </p:outputPanel>
+                                        <p:column>
+                                            Data: 12/09/2014
+                                        </p:column>
+                                        <p:column>
+                                            Autor: Olivier
+                                        </p:column>
+                                    </p:panelGrid>
+                                    <br/>
+                                    testestetst fdsgyfgsyfgs
+                                    testando
+                                    testestetst fdsgyfgsyfgs
+                                    testando
+                                    testestetst fdsgyfgsyfgs
+                                    testando
+                                    testestetst fdsgyfgsyfgs
+                                    testando
+                                    testestetst fdsgyfgsyfgs
+                                    testando
+                                </p:fieldset>
+
+
+
+                            </p:outputPanel>
+                        </p:dialog>
+
+
+                    </h:form>
+                </p:layoutUnit>
+
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
+</html>
+

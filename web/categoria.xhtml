@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>PrimeFaces</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true">
+
+                <p:layoutUnit position="north" size="130" resizable="false" closable="false" collapsible="false">
+                    <center><img src="images/QUESTIONS LOGO.png"/></center>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
+                    Footer
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" size="175" header="Questions" collapsible="false">
+                    <p:menu>
+                            <p:menuitem value="Questions" url="/questions.jsf" />
+                            <p:menuitem value="Category" url="/categoria.jsf" />
+                    </p:menu>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+                    <h:form>
+                    Category:
+                    <p:inputText value="#{categoriaController.categoria.categoria}"/> 
+                    <p:commandButton value="Add Category" style="font-size: 75%" action="#{categoriaController.addCategoria()}" ajax="false"/>
+                    <br/>
+                    <p:dataList value="#{categoriaController.categorias}" var="cat">
+                    <f:facet name="header">
+                        Category
+                    </f:facet>
+                        #{cat.categoria}
+                    </p:dataList>
+                    </h:form>
+                </p:layoutUnit>
+
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
+</html>
+
